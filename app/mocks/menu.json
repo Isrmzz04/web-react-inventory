@@ -1,0 +1,44 @@
+[
+  {
+    "key": "/",
+    "icon": "IconLayout2",
+    "label": "Dashboard"
+  },
+  {
+    "key": "/inventory-management",
+    "icon": "IconFolderOpen",
+    "label": "Inventory Management",
+    "children": [
+      {
+        "key": "/inventory-management/inventories",
+        "icon": "IconDirectionHorizontal",
+        "label": "Inventories"
+      },
+      {
+        "key": "/inventory-management/categories",
+        "icon": "IconDirectionHorizontal",
+        "label": "Categories"
+      },
+      {
+        "key": "/inventory-management/locations",
+        "icon": "IconDirectionHorizontal",
+        "label": "Locations"
+      },
+      {
+        "key": "/inventory-management/suppliers",
+        "icon": "IconDirectionHorizontal",
+        "label": "Suppliers"
+      },
+      {
+        "key": "/inventory-management/stock-entries",
+        "icon": "IconDirectionHorizontal",
+        "label": "Stock Entries"
+      },
+      {
+        "key": "/inventory-management/stock-exits",
+        "icon": "IconDirectionHorizontal",
+        "label": "Stock Exits"
+      }
+    ]
+  }
+]

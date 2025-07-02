@@ -1,0 +1,25 @@
+.ant-menu-item-selected {
+  background-color: #2f2f2d !important;
+  color: #ffffff !important;
+}
+
+.ant-menu-light .ant-menu-submenu-selected > .ant-menu-submenu-title,
+.ant-menu-light
+  > .ant-menu
+  .ant-menu-submenu-selected
+  > .ant-menu-submenu-title {
+  background-color: #2f2f2d !important;
+  color: #ffffff;
+}
+
+.ant-menu .ant-menu-submenu-expand-icon,
+.ant-menu .ant-menu-submenu-arrow {
+  color: #2f2f2d;
+}
+
+.ant-menu
+  .ant-menu-submenu-open.ant-menu-submenu-inline
+  > .ant-menu-submenu-title
+  > .ant-menu-submenu-arrow {
+  color: #2f2f2d;
+}
