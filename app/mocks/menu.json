@@ -8,12 +8,7 @@
     "key": "/inventory-management",
     "icon": "IconFolderOpen",
     "label": "Inventory Management",
-    "children": [
-      {
-        "key": "/inventory-management/inventories",
-        "icon": "IconDirectionHorizontal",
-        "label": "Inventories"
-      },
+    "children": [      
       {
         "key": "/inventory-management/categories",
         "icon": "IconDirectionHorizontal",
@@ -30,15 +25,15 @@
         "label": "Suppliers"
       },
       {
-        "key": "/inventory-management/stock-entries",
+        "key": "/inventory-management/inventories",
         "icon": "IconDirectionHorizontal",
-        "label": "Stock Entries"
-      },
-      {
-        "key": "/inventory-management/stock-exits",
-        "icon": "IconDirectionHorizontal",
-        "label": "Stock Exits"
+        "label": "Inventories"
       }
     ]
+  },
+  {
+    "key": "/borrowing",
+    "icon": "IconShoppingBagSearch",
+    "label": "Borrowings"
   }
 ]

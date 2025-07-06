@@ -69,3 +69,4 @@ export type IconName =
   | 'IconLayout2' 
   | 'IconFolderOpen' 
   | 'IconDirectionHorizontal'
+  | 'IconShoppingBagSearch'

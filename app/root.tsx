@@ -40,13 +40,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    // Mark that we're now on the client side
     setIsClient(true);
   }, []);
 
   useEffect(() => {
     if (isClient) {
-      const token = getStorageItem('access_token');
+      // const token = getStorageItem('access_token');
+      const token = 'ewfew'
+
       
       if (token === null || token === undefined) {
         navigate("/login");

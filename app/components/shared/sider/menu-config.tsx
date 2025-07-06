@@ -3,6 +3,7 @@ import {
   IconLayout2,
   IconFolderOpen,
   IconDirectionHorizontal,
+  IconShoppingBagSearch
 } from '@tabler/icons-react';
 import type { IconName } from '~/types/global.types';
 
@@ -10,6 +11,7 @@ export const iconMap: Record<IconName, React.ComponentType> = {
   IconLayout2,
   IconFolderOpen,
   IconDirectionHorizontal,
+  IconShoppingBagSearch
 };
 
 export const getIconComponent = (iconName: string, className?: string): React.ReactElement | null => {

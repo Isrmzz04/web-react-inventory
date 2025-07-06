@@ -5,8 +5,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 import svgr from '@svgr/rollup'
 
 export default defineConfig({
-  plugins: [tailwindcss(), reactRouter(), tsconfigPaths(), svgr()],
-  // server: {
-  //   port: 5555
-  // }
+  plugins: [
+    tailwindcss(),
+    reactRouter(),
+    tsconfigPaths(),
+    svgr()
+  ],
+  server: {
+    port: 3000,
+  }
 });

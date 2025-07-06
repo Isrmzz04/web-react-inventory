@@ -1,0 +1,370 @@
+{
+  "meta": {
+    "success": true,
+    "code": 200,
+    "message": "Data inventaris berhasil diambil."
+  },
+  "data": {
+    "page_data": [
+      {
+        "id": 1,
+        "name": "necessitatibus",
+        "category_id": "2",
+        "location_id": "3",
+        "supplier_id": "2",
+        "quantity": "15",
+        "unit": "unit",
+        "condition": "rusak berat",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 2,
+          "name": "Category 2",
+          "description": "Harum porro voluptas saepe temporibus aperiam voluptatem quos.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 3,
+          "name": "Location 3",
+          "description": "Nobis vitae laboriosam officiis magni.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 2,
+          "name": "Kreiger-Sporer",
+          "address": "968 Watson Gateway Suite 992\nPort Avery, LA 44458",
+          "phone": "+1.680.456.0256",
+          "email": "mattie69@example.org",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 2,
+        "name": "vero",
+        "category_id": "1",
+        "location_id": "4",
+        "supplier_id": "3",
+        "quantity": "95",
+        "unit": "box",
+        "condition": "baik",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 1,
+          "name": "Category 11",
+          "description": "Quam et vel magnam deserunt nobis necessitatibus et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:48:04.000000Z"
+        },
+        "location": {
+          "id": 4,
+          "name": "Location 4",
+          "description": "Ratione quas dolore ut quasi modi ratione doloremque.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 3,
+          "name": "Beatty LLC",
+          "address": "972 Sandy Hills Suite 641\nEast Robertborough, AZ 01918-7886",
+          "phone": "+1.828.585.8882",
+          "email": "kaley49@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 3,
+        "name": "ab",
+        "category_id": "5",
+        "location_id": "5",
+        "supplier_id": "1",
+        "quantity": "87",
+        "unit": "pcs",
+        "condition": "rusak berat",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 5,
+          "name": "Category 5",
+          "description": "Dignissimos id quae optio doloribus vel.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 5,
+          "name": "Location 5",
+          "description": "Consectetur suscipit rerum distinctio eaque minima.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 1,
+          "name": "Greenfelder Ltd",
+          "address": "2130 Lourdes Terrace Suite 037\nDejuanborough, MD 43121",
+          "phone": "+1.949.600.4573",
+          "email": "stanton.nova@example.org",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 4,
+        "name": "odio",
+        "category_id": "1",
+        "location_id": "2",
+        "supplier_id": "3",
+        "quantity": "60",
+        "unit": "pcs",
+        "condition": "rusak berat",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 1,
+          "name": "Category 11",
+          "description": "Quam et vel magnam deserunt nobis necessitatibus et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:48:04.000000Z"
+        },
+        "location": {
+          "id": 2,
+          "name": "Location 2",
+          "description": "Autem sit maiores cupiditate aspernatur minima saepe dignissimos sunt.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 3,
+          "name": "Beatty LLC",
+          "address": "972 Sandy Hills Suite 641\nEast Robertborough, AZ 01918-7886",
+          "phone": "+1.828.585.8882",
+          "email": "kaley49@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 5,
+        "name": "quia",
+        "category_id": "4",
+        "location_id": "3",
+        "supplier_id": "5",
+        "quantity": "96",
+        "unit": "box",
+        "condition": "baik",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 4,
+          "name": "Category 4",
+          "description": "Doloribus dolore rerum commodi et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 3,
+          "name": "Location 3",
+          "description": "Nobis vitae laboriosam officiis magni.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 5,
+          "name": "Hayes LLC",
+          "address": "44843 Larkin Creek Apt. 869\nPort Katheryn, DE 77991-2135",
+          "phone": "757-889-4766",
+          "email": "gbeatty@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 6,
+        "name": "ad",
+        "category_id": "2",
+        "location_id": "5",
+        "supplier_id": "5",
+        "quantity": "57",
+        "unit": "unit",
+        "condition": "rusak berat",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 2,
+          "name": "Category 2",
+          "description": "Harum porro voluptas saepe temporibus aperiam voluptatem quos.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 5,
+          "name": "Location 5",
+          "description": "Consectetur suscipit rerum distinctio eaque minima.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 5,
+          "name": "Hayes LLC",
+          "address": "44843 Larkin Creek Apt. 869\nPort Katheryn, DE 77991-2135",
+          "phone": "757-889-4766",
+          "email": "gbeatty@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 7,
+        "name": "quod",
+        "category_id": "4",
+        "location_id": "2",
+        "supplier_id": "3",
+        "quantity": "62",
+        "unit": "pcs",
+        "condition": "rusak ringan",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 4,
+          "name": "Category 4",
+          "description": "Doloribus dolore rerum commodi et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 2,
+          "name": "Location 2",
+          "description": "Autem sit maiores cupiditate aspernatur minima saepe dignissimos sunt.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 3,
+          "name": "Beatty LLC",
+          "address": "972 Sandy Hills Suite 641\nEast Robertborough, AZ 01918-7886",
+          "phone": "+1.828.585.8882",
+          "email": "kaley49@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 8,
+        "name": "exercitationem",
+        "category_id": "1",
+        "location_id": "5",
+        "supplier_id": "3",
+        "quantity": "44",
+        "unit": "box",
+        "condition": "rusak berat",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 1,
+          "name": "Category 11",
+          "description": "Quam et vel magnam deserunt nobis necessitatibus et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:48:04.000000Z"
+        },
+        "location": {
+          "id": 5,
+          "name": "Location 5",
+          "description": "Consectetur suscipit rerum distinctio eaque minima.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 3,
+          "name": "Beatty LLC",
+          "address": "972 Sandy Hills Suite 641\nEast Robertborough, AZ 01918-7886",
+          "phone": "+1.828.585.8882",
+          "email": "kaley49@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 9,
+        "name": "sed",
+        "category_id": "5",
+        "location_id": "4",
+        "supplier_id": "5",
+        "quantity": "69",
+        "unit": "box",
+        "condition": "baik",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 5,
+          "name": "Category 5",
+          "description": "Dignissimos id quae optio doloribus vel.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "location": {
+          "id": 4,
+          "name": "Location 4",
+          "description": "Ratione quas dolore ut quasi modi ratione doloremque.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 5,
+          "name": "Hayes LLC",
+          "address": "44843 Larkin Creek Apt. 869\nPort Katheryn, DE 77991-2135",
+          "phone": "757-889-4766",
+          "email": "gbeatty@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      },
+      {
+        "id": 10,
+        "name": "facilis",
+        "category_id": "1",
+        "location_id": "3",
+        "supplier_id": "3",
+        "quantity": "41",
+        "unit": "unit",
+        "condition": "rusak ringan",
+        "created_at": "2025-07-05T17:40:19.000000Z",
+        "updated_at": "2025-07-05T17:40:19.000000Z",
+        "category": {
+          "id": 1,
+          "name": "Category 11",
+          "description": "Quam et vel magnam deserunt nobis necessitatibus et.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:48:04.000000Z"
+        },
+        "location": {
+          "id": 3,
+          "name": "Location 3",
+          "description": "Nobis vitae laboriosam officiis magni.",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        },
+        "supplier": {
+          "id": 3,
+          "name": "Beatty LLC",
+          "address": "972 Sandy Hills Suite 641\nEast Robertborough, AZ 01918-7886",
+          "phone": "+1.828.585.8882",
+          "email": "kaley49@example.com",
+          "created_at": "2025-07-05T17:40:19.000000Z",
+          "updated_at": "2025-07-05T17:40:19.000000Z"
+        }
+      }
+    ],
+    "page_info": {
+      "current_page": 1,
+      "total_pages": 1,
+      "total_records": 10,
+      "limit": 10,
+      "sort": "updated_at",
+      "order": "desc",
+      "search": null
+    }
+  }
+}

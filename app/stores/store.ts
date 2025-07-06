@@ -5,6 +5,16 @@ import encryptTransform from "~/helpers/encrypt"
 import type { IGlobalState } from "./global/global.slice"
 import globalSlice from "./global/global.slice"
 import authSlice, { type IAuthState } from "./main/auth/auth.slice"
+import type { TCategoryState } from "./main/category/category.slice"
+import categorySlice from "./main/category/category.slice"
+import type { TLocationState } from "./main/location/location.slice"
+import locationSlice from "./main/location/location.slice"
+import type { TSupplierState } from "./main/supplier/supplier.slice"
+import supplierSlice from "./main/supplier/supplier.slice"
+import type { TInventoryState } from "./main/inventory/inventory.slice"
+import inventorySlice from "./main/inventory/inventory.slice"
+import type { TBorrowingState } from "./main/borrowing/borrowing.slice"
+import borrowingSlice from "./main/borrowing/borrowing.slice"
 
 const createNoopStorage = () => {
   return {
@@ -27,6 +37,11 @@ const storage = typeof window !== 'undefined'
 interface RootState {
   global: IGlobalState;
   auth: IAuthState
+  category: TCategoryState
+  location: TLocationState
+  supplier: TSupplierState
+  inventory: TInventoryState
+  borrowing: TBorrowingState
 }
 
 const persistConfig = {
@@ -39,7 +54,12 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   global: globalSlice,
-  auth: authSlice
+  auth: authSlice,
+  category: categorySlice,
+  location: locationSlice,
+  supplier: supplierSlice,
+  inventory: inventorySlice,
+  borrowing: borrowingSlice
 })
 
 const persistedReducer = persistReducer<RootState>(persistConfig, rootReducer as any);
