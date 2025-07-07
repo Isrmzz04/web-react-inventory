@@ -22,7 +22,6 @@ export default function Borrowings() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  console.log(borrowingState, 'borrowing state')
 
   const loadBorrowing = () => {
     const params = {

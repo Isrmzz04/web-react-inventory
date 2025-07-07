@@ -26,7 +26,6 @@ export default function Inventories() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  console.log(inventoryState, 'inventory state')
 
   const loadInventory = () => {
     const params = {

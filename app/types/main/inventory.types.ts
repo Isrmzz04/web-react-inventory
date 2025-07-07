@@ -20,6 +20,31 @@ export interface IInventoryResponse {
   updated_at: string;
 }
 
+export interface IInventoryBorrowingResponse {
+  id: number;
+  name: string;
+  quantity: string;
+  unit: string;
+  created_at: string;
+  updated_at: string;
+  category_name: string;
+  borrowings: Array<{
+    id: number;
+    kode_peminjaman: string;
+    nama: string;
+    email: string;
+    divisi: string;
+    nomor_identitas: string;
+    qty: string;
+    tgl_peminjaman: string;
+    tgl_pengembalian: string | null;
+    approved: string | null;
+    created_at: string;
+    updated_at: string;
+  }>;
+}
+
+
 export interface IInventoryRequest {
   name: string;
   category_id: string;

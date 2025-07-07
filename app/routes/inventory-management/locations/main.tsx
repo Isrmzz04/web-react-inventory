@@ -20,7 +20,6 @@ export default function Locations() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  console.log(locationState, 'location state')
 
   const loadLocation = () => {
     const params = {

@@ -2,10 +2,11 @@ import { type RouteConfig, index, route } from "@react-router/dev/routes";
 
 export default [
   index("routes/dashboard/main.tsx"),
-
+  route("/inventory-by-barcode/:id", "routes/inventory-by-barcode/main.tsx"),
+  route("/borrowing-request", "routes/borrowing-request/main.tsx"),
+  
   route("/login", "routes/auth/main.tsx"),
-
-  // Dashboard route
+  
   // route("/dashboard", "routes/dashboard/main.tsx"),
   route("/inventory-management/inventories", "routes/inventory-management/inventories/main.tsx"),
   route("/inventory-management/categories", "routes/inventory-management/categories/main.tsx"),

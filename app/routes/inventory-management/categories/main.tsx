@@ -20,7 +20,6 @@ export default function Categories() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  console.log(categoryState, 'adad')
 
   const loadCategory = () => {
     const params = {

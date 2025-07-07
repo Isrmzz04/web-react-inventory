@@ -6,6 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
   useNavigate,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -37,6 +38,7 @@ function getStorageItem(key: string): string | null {
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -46,16 +48,35 @@ export function Layout({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (isClient) {
       // const token = getStorageItem('access_token');
-      const token = 'ewfew'
+      const token = 'ewfew';
+      const currentPath = location.pathname;
 
+      const publicPaths = [
+        '/borrowing-request',
+        '/inventory-by-barcode'
+      ];
+
+      const protectedPaths = [
+        '/inventory-management',
+        '/borrowing',
+        '/login'
+      ];
+
+      const isPublicRoute = publicPaths.some(path => currentPath.startsWith(path));
       
+      const isProtectedRoute = protectedPaths.some(path => currentPath.startsWith(path));
+
       if (token === null || token === undefined) {
-        navigate("/login");
+        if (!isPublicRoute) {
+          navigate("/login");
+        }
       } else {
-        navigate("/");
+        if (currentPath === "/login") {
+          navigate("/");
+        }
       }
     }
-  }, [isClient, navigate]);
+  }, [isClient, navigate, location.pathname]);
 
   return (
     <html lang="en">

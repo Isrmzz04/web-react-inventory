@@ -1,4 +1,4 @@
-import { Button, Input, Table, Space, Popconfirm, Tag, Badge } from "antd"
+import { Button, Input, Table, Space, Popconfirm, Tag, Badge, QRCode } from "antd"
 import { SearchOutlined, PlusOutlined, EditOutlined, DeleteOutlined, EyeOutlined, InboxOutlined } from "@ant-design/icons"
 import type { ColumnsType } from "antd/es/table"
 import { useAppSelector } from "~/stores/hook"
@@ -49,6 +49,16 @@ export default function Browse({
       render: (_, __, index) => {
         const currentPage = inventoryState.pagination?.current_page || 1
         return (currentPage - 1) * limit + index + 1
+      }
+    },
+    {
+      title: 'Barcode',
+      dataIndex: 'id',
+      key: 'id',      
+      render: (value, record, number) => {
+        return (
+          <QRCode value={`http://172.20.10.9:3000/inventory-by-barcode/${record?.id}` || '-'} />
+        )
       }
     },
     {
@@ -173,13 +183,13 @@ export default function Browse({
   ]
 
   return (
-    <div className="bg-white rounded-lg shadow-sm">      
+    <div className="bg-white rounded-lg shadow-sm">
       <div className="p-6 border-b border-gray-200">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex-1 max-w-md">
             <Search
               placeholder="Search inventory items..."
-              allowClear              
+              allowClear
               enterButton={<SearchOutlined />}
               size="large"
               onSearch={handleSearch}
@@ -201,7 +211,7 @@ export default function Browse({
           </Button>
         </div>
       </div>
-      
+
       <div className="p-6">
         <Table
           columns={columns}
@@ -215,7 +225,7 @@ export default function Browse({
             total: inventoryState.pagination?.total_records || 0,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: (total, range) => 
+            showTotal: (total, range) =>
               `${range[0]}-${range[1]} of ${total} items`,
             onShowSizeChange: (current, size) => {
               setLimit(size)

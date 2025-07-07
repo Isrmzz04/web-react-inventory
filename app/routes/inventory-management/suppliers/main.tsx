@@ -20,7 +20,6 @@ export default function Suppliers() {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
-  console.log(supplierState, 'supplier state')
 
   const loadSupplier = () => {
     const params = {
