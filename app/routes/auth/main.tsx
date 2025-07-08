@@ -40,7 +40,7 @@ export default function Auth() {
       <div className="bg-white rounded-2xl flex flex-col justify-center px-4 py-12 lg:flex-none lg:px-6 xl:px-10">
         <div className="w-[300px] mx-auto">
           <div className="text-center">
-            <img src="https://placehold.co/400" alt="" className="w-14 h-14 mx-auto" />
+            <img src="/logo-pelindo.webp" alt="" className="w-36 h-36 mx-auto" />
             <h2 className="mt-6 text-2xl font-bold text-neutral-600">Login</h2>
             <p className="text-sm text-black/50 mt-2">Admin Panel Web Inventory</p>
           </div>
