@@ -2,7 +2,6 @@ import type { ILocationRequest, ILocationResponse } from '~/types/main/location.
 import * as LocationAction from './location.action'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { IPageInfoResponse, TPage, TRequestParams } from '~/types/global.types'
-import mockLocations from "~/mocks/locations.json"
 
 export const getAllLocations = createAsyncThunk('location/index', async (payload: TRequestParams) => {
   try {
@@ -85,9 +84,9 @@ export type TLocationState = {
 const initialState: TLocationState = {
   isLoading: false,
   isError: false,
-  listLocations: mockLocations.data.page_data,
+  listLocations:[],
   detailLocation: {} as ILocationResponse,
-  pagination: mockLocations.data.page_info as IPageInfoResponse
+  pagination: {} as IPageInfoResponse
 }
 
 const locationSlice = createSlice({

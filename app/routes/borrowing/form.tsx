@@ -43,6 +43,7 @@ export default function FormModal({
   useEffect(() => {
     if (isEdit && borrowingState.detailBorrowing?.id) {
       form.setFieldsValue({
+        kode_peminjaman: borrowingState.detailBorrowing.kode_peminjaman,
         nama: borrowingState.detailBorrowing.nama,
         email: borrowingState.detailBorrowing.email,
         divisi: borrowingState.detailBorrowing.divisi,
@@ -91,6 +92,20 @@ export default function FormModal({
           autoComplete="off"
         >
           <Row gutter={[16, 0]}>
+            <Col span={24}>
+              <Form.Item
+                label="Borrowing Code"
+                name="kode_peminjaman"
+              >
+                <Input
+                  placeholder="-"
+                  size="large"
+                  maxLength={100}
+                  disabled
+                />
+              </Form.Item>
+            </Col>
+
             <Col span={12}>
               <Form.Item
                 label="Borrower Name"

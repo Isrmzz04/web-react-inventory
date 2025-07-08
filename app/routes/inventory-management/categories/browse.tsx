@@ -79,14 +79,6 @@ export default function Browse({
         <Space size="small">
           <Button
             type="primary"
-            ghost
-            size="small"
-            icon={<EyeOutlined />}
-            onClick={() => handleDetail(record.id, false)}
-            title="View Detail"
-          />
-          <Button
-            type="primary"
             size="small"
             icon={<EditOutlined />}
             onClick={() => handleDetail(record.id, true)}

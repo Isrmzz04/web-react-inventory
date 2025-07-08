@@ -163,18 +163,10 @@ export default function Browse({
     {
       title: 'Action',
       key: 'action',
-      width: 200,
+      width: 60,
       fixed: 'right',
       render: (_, record) => (
         <Space size="small" wrap>
-          <Button
-            type="primary"
-            ghost
-            size="small"
-            icon={<EyeOutlined />}
-            onClick={() => handleDetail(record.id, false)}
-            title="View Detail"
-          />
 
           {record.approved === 'pending' && (
             <>
@@ -258,7 +250,7 @@ export default function Browse({
               }}
             />
           </div>
-          <Button
+          {/* <Button
             type="primary"
             icon={<PlusOutlined />}
             size="large"
@@ -266,7 +258,7 @@ export default function Browse({
             className="flex items-center"
           >
             New Borrowing
-          </Button>
+          </Button> */}
         </div>
       </div>
 

@@ -57,7 +57,7 @@ export default function Browse({
       key: 'id',      
       render: (value, record, number) => {
         return (
-          <QRCode value={`http://172.20.10.9:3000/inventory-by-barcode/${record?.id}` || '-'} />
+          <QRCode value={`https://sistem-inventaris.my.id/be/inventory-by-barcode/${record?.id}` || '-'} />
         )
       }
     },
@@ -146,14 +146,6 @@ export default function Browse({
       fixed: 'right',
       render: (_, record) => (
         <Space size="small">
-          <Button
-            type="primary"
-            ghost
-            size="small"
-            icon={<EyeOutlined />}
-            onClick={() => handleDetail(record.id, false)}
-            title="View Detail"
-          />
           <Button
             type="primary"
             size="small"

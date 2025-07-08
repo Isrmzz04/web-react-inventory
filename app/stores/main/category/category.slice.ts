@@ -2,7 +2,6 @@ import type { ICategoryRequest, ICategoryResponse } from '~/types/main/category.
 import * as CategoryAction from './category.action'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { IPageInfoResponse, TPage, TRequestParams } from '~/types/global.types'
-import mockCategories from "~/mocks/categories.json"
 
 export const getAllCategories = createAsyncThunk('category/index', async (payload: TRequestParams) => {
   try {
@@ -84,10 +83,9 @@ export type TCategoryState = {
 const initialState: TCategoryState = {
   isLoading: false,
   isError: false,
-  listCategories: mockCategories.data.page_data,
+  listCategories: [],
   detailCategory: {} as ICategoryResponse,
-  // pagination: {} as IPageInfoResponse
-  pagination: mockCategories.data.page_info as IPageInfoResponse
+  pagination: {} as IPageInfoResponse
 }
 
 const categorySlice = createSlice({

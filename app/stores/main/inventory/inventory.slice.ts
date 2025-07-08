@@ -2,7 +2,6 @@ import type { IInventoryRequest, IInventoryResponse } from '~/types/main/invento
 import * as InventoryAction from './inventory.action'
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import type { IPageInfoResponse, TPage, TRequestParams } from '~/types/global.types'
-import mockInventories from "~/mocks/inventories.json"
 
 export const getAllInventories = createAsyncThunk('inventory/index', async (payload: TRequestParams) => {
   try {
@@ -85,9 +84,9 @@ export type TInventoryState = {
 const initialState: TInventoryState = {
   isLoading: false,
   isError: false,
-  listInventories: mockInventories.data.page_data,
+  listInventories: [],
   detailInventory: {} as IInventoryResponse,
-  pagination: mockInventories.data.page_info as IPageInfoResponse
+  pagination: {} as IPageInfoResponse
 }
 
 const inventorySlice = createSlice({

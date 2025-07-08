@@ -1,9 +1,9 @@
 import { Form, notification } from "antd";
 import debounce from 'debounce';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
-import { deleteCategory, getAllCategories, getOneCategory } from "~/stores/main/category/category.slice";
+import { createCategory, deleteCategory, getAllCategories, getOneCategory, updateCategory } from "~/stores/main/category/category.slice";
 import type { ICategoryRequest } from "~/types/main/category.types";
 import Browse from "./browse";
 import FormModal from "./form";
@@ -30,9 +30,9 @@ export default function Categories() {
     dispatch(getAllCategories(params))
   }
 
-  // useEffect(() => {
-  //   loadCategory()
-  // }, [search, limit, page])
+  useEffect(() => {
+    loadCategory()
+  }, [search, limit, page])
 
   const handleSearch = useRef(
     debounce((value: string) => {
@@ -47,6 +47,7 @@ export default function Categories() {
       .unwrap()
       .then(() => {
         setIsModalVisible(true)
+        setIsEdit(isEdit)
       })
       .catch(() => {
         notification.error({
@@ -59,7 +60,44 @@ export default function Categories() {
 
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
-      console.log(values)
+      if (!isEdit) {
+        dispatch(createCategory({
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 201) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadCategory()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      } else {
+        dispatch(updateCategory({
+          id: categoryState.detailCategory.id,
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 200) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadCategory()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      }
     }).catch(err => {
       notification.warning({
         message: 'Warning',

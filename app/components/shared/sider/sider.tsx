@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { Flex, Layout, Menu, Modal } from 'antd';
 import { useNavigate, useLocation } from 'react-router';
 import type { MenuProps } from 'antd';
-import menuDummy from '~/mocks/menu.json';
+// import menuDummy from '~/mocks/menu.json';
 import { getIconComponent } from './menu-config';
 import type { MenuItem } from '~/types/global.types';
 import { useAppDispatch, useAppSelector } from '~/stores/hook';
 import './style.scss'
 import { IconAlignRight2, IconSquareRoundedArrowLeftFilled } from '@tabler/icons-react';
+import { logout } from '~/stores/main/auth/auth.slice';
 
 interface ISider {
   onToggle: () => void
@@ -15,6 +16,7 @@ interface ISider {
 
 export default function Sider(props: ISider) {
   const globalState = useAppSelector((state) => state.global)
+  const authState = useAppSelector((state) => state.auth)
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
   const location = useLocation();
@@ -72,7 +74,7 @@ export default function Sider(props: ISider) {
 
   const getCurrentKey = (): string => {
     const currentPath = location.pathname;
-    const matchingKeys = findMatchingKeys(menuDummy, currentPath);
+    const matchingKeys = findMatchingKeys((authState.userData?.menus ?? []), currentPath);
 
     const mostSpecificKey = matchingKeys.reduce((longest, current) => {
       return current.length > longest.length ? current : longest;
@@ -99,12 +101,12 @@ export default function Sider(props: ISider) {
       }
     };
 
-    findParentKeys(menuDummy, currentPath);
+    findParentKeys((authState.userData?.menus ?? []), currentPath);
     return openKeys;
   };
 
   const handleMenuClick: MenuProps['onClick'] = ({ key }) => {
-    const selectedItem = findMenuItem(menuDummy, key);
+    const selectedItem = findMenuItem((authState.userData?.menus ?? []), key);
     if (selectedItem) {
       navigate(selectedItem.key);
     }
@@ -115,8 +117,8 @@ export default function Sider(props: ISider) {
   };
 
   const handleLogoutConfirm = () => {
-    // dispatch(logout());
-    navigate('/auth/login');
+    dispatch(logout());
+    navigate('/login');
     setIsLogoutModalOpen(false);
   };
 
@@ -145,7 +147,7 @@ export default function Sider(props: ISider) {
           mode="inline"
           onClick={handleMenuClick}
           inlineCollapsed={globalState.siderCollapsed}
-          items={processMenuItems(menuDummy)}
+          items={processMenuItems((authState.userData?.menus ?? []))}
         />
       </div>
       <Flex align='center' justify={globalState.siderCollapsed ? 'center' : 'end'} className='!p-4'>

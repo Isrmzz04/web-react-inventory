@@ -3,11 +3,12 @@ import debounce from 'debounce';
 import { useRef, useState, useEffect } from "react";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
-import { deleteBorrowing, getAllBorrowings, getOneBorrowing } from "~/stores/main/borrowing/borrowing.slice";
+import { createBorrowing, deleteBorrowing, getAllBorrowings, getOneBorrowing, updateBorrowing } from "~/stores/main/borrowing/borrowing.slice";
 import { getAllInventories } from "~/stores/main/inventory/inventory.slice";
 import type { IBorrowingRequest } from "~/types/main/borrowing.types";
 import Browse from "./browse";
 import FormModal from "./form";
+import dayjs from "dayjs";
 
 export default function Borrowings() {
   const borrowingState = useAppSelector((state) => state.borrowing)
@@ -40,9 +41,9 @@ export default function Borrowings() {
     loadInventoryData()
   }, [])
 
-  // useEffect(() => {
-  //   loadBorrowing()
-  // }, [search, limit, page])
+  useEffect(() => {
+    loadBorrowing()
+  }, [search, limit, page])
 
   const handleSearch = useRef(
     debounce((value: string) => {
@@ -69,7 +70,47 @@ export default function Borrowings() {
 
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
-      console.log(values)
+      values.tgl_peminjaman = dayjs(values.tgl_peminjaman).format('YYYY-MM-DD')
+      values.tgl_pengembalian = dayjs(values.tgl_pengembalian).format('YYYY-MM-DD')
+      
+      if (!isEdit) {
+        dispatch(createBorrowing({
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 201) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadBorrowing()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      } else {
+        dispatch(updateBorrowing({
+          id: borrowingState.detailBorrowing.id,
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 200) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadBorrowing()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      }
     }).catch(err => {
       notification.warning({
         message: 'Warning',
@@ -169,8 +210,8 @@ export default function Borrowings() {
           handleCreate={() => setIsModalVisible(true)}
           handleDetail={handleDetail}
           handleDelete={onDelete}
-          handleApprove={() => {}}
-          handleReturn={() => {}}
+          handleApprove={() => { }}
+          handleReturn={() => { }}
         />
 
         <FormModal

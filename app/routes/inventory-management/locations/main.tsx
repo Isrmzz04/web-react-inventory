@@ -1,9 +1,9 @@
 import { Form, notification } from "antd";
 import debounce from 'debounce';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
-import { deleteLocation, getAllLocations, getOneLocation } from "~/stores/main/location/location.slice";
+import { createLocation, deleteLocation, getAllLocations, getOneLocation, updateLocation } from "~/stores/main/location/location.slice";
 import type { ILocationRequest } from "~/types/main/location.types";
 import Browse from "./browse";
 import FormModal from "./form";
@@ -30,9 +30,9 @@ export default function Locations() {
     dispatch(getAllLocations(params))
   }
 
-  // useEffect(() => {
-  //   loadLocation()
-  // }, [search, limit, page])
+  useEffect(() => {
+    loadLocation()
+  }, [search, limit, page])
 
   const handleSearch = useRef(
     debounce((value: string) => {
@@ -59,7 +59,44 @@ export default function Locations() {
 
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
-      console.log(values)
+      if (!isEdit) {
+        dispatch(createLocation({
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 201) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadLocation()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      } else {
+        dispatch(updateLocation({
+          id: locationState.detailLocation.id,
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 200) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadLocation()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      }
     }).catch(err => {
       notification.warning({
         message: 'Warning',

@@ -1,8 +1,7 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import type { IPageInfoResponse, TRequestParams } from '~/types/global.types'
 import type { ISupplierRequest, ISupplierResponse } from '~/types/main/supplier.types'
 import * as SupplierAction from './supplier.action'
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import type { IPageInfoResponse, TPage, TRequestParams } from '~/types/global.types'
-import mockSuppliers from "~/mocks/suppliers.json"
 
 export const getAllSuppliers = createAsyncThunk('supplier/index', async (payload: TRequestParams) => {
   try {
@@ -85,9 +84,9 @@ export type TSupplierState = {
 const initialState: TSupplierState = {
   isLoading: false,
   isError: false,
-  listSuppliers: mockSuppliers.data.page_data,
+  listSuppliers: [],
   detailSupplier: {} as ISupplierResponse,
-  pagination: mockSuppliers.data.page_info as IPageInfoResponse
+  pagination: {} as IPageInfoResponse
 }
 
 const supplierSlice = createSlice({

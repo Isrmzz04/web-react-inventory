@@ -47,8 +47,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isClient) {
-      // const token = getStorageItem('access_token');
-      const token = 'ewfew';
+      const token = getStorageItem('access_token');
+      // const token = 'ewfew';
       const currentPath = location.pathname;
 
       const publicPaths = [

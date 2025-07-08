@@ -1,9 +1,9 @@
-import { Form, notification } from "antd";
+import { Form, notification, Spin } from "antd";
 import debounce from 'debounce';
 import { useRef, useState, useEffect } from "react";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
-import { deleteInventory, getAllInventories, getOneInventory } from "~/stores/main/inventory/inventory.slice";
+import { createInventory, deleteInventory, getAllInventories, getOneInventory, updateInventory } from "~/stores/main/inventory/inventory.slice";
 import { getAllCategories } from "~/stores/main/category/category.slice";
 import { getAllLocations } from "~/stores/main/location/location.slice";
 import { getAllSuppliers } from "~/stores/main/supplier/supplier.slice";
@@ -46,9 +46,9 @@ export default function Inventories() {
     loadDropdownData()
   }, [])
 
-  // useEffect(() => {
-  //   loadInventory()
-  // }, [search, limit, page])
+  useEffect(() => {
+    loadInventory()
+  }, [search, limit, page])
 
   const handleSearch = useRef(
     debounce((value: string) => {
@@ -73,9 +73,47 @@ export default function Inventories() {
       })
   }
 
+
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
-      console.log(values)
+      if (!isEdit) {
+        dispatch(createInventory({
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 201) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadInventory()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      } else {
+        dispatch(updateInventory({
+          id: inventoryState.detailInventory.id,
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 200) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadInventory()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      }
     }).catch(err => {
       notification.warning({
         message: 'Warning',

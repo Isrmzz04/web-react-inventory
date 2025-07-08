@@ -1,9 +1,9 @@
 import { Form, notification } from "antd";
 import debounce from 'debounce';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
-import { deleteSupplier, getAllSuppliers, getOneSupplier } from "~/stores/main/supplier/supplier.slice";
+import { createSupplier, deleteSupplier, getAllSuppliers, getOneSupplier, updateSupplier } from "~/stores/main/supplier/supplier.slice";
 import type { ISupplierRequest } from "~/types/main/supplier.types";
 import Browse from "./browse";
 import FormModal from "./form";
@@ -30,9 +30,9 @@ export default function Suppliers() {
     dispatch(getAllSuppliers(params))
   }
 
-  // useEffect(() => {
-  //   loadSupplier()
-  // }, [search, limit, page])
+  useEffect(() => {
+    loadSupplier()
+  }, [search, limit, page])
 
   const handleSearch = useRef(
     debounce((value: string) => {
@@ -59,7 +59,44 @@ export default function Suppliers() {
 
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
-      console.log(values)
+      if (!isEdit) {
+        dispatch(createSupplier({
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 201) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadSupplier()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      } else {
+        dispatch(updateSupplier({
+          id: supplierState.detailSupplier.id,
+          payload: values,
+          callback: (code: number, message: string) => {
+            if (code === 200) {
+              notification.success({
+                message: 'Success',
+                description: message,
+                duration: 2
+              })
+              loadSupplier()
+              setPage(1)
+              form.resetFields()
+              setIsModalVisible(false)
+              setIsEdit(false)
+            }
+          }
+        }))
+      }
     }).catch(err => {
       notification.warning({
         message: 'Warning',

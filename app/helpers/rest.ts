@@ -1,4 +1,4 @@
-export const baseUrl = 'https://sistem-inventaris.my.id/api/'
+export const baseUrl = 'https://sistem-inventaris.my.id/be/api/'
 
 export const rest = {
   global: {
@@ -10,16 +10,9 @@ export const rest = {
       login: 'login',
       logout: 'logout'
     },
-    dashboard: {
-      totalInventories: 'dashboard/total-inventories',
-      totalCategories: 'dashboard/total-categories',
-      totalLocations: 'dashboard/total-locations',
-      totalSuppliers: 'dashboard/total-suppliers',
-      totalBorrowings: 'dashboard/total-borrowings',
-      pendingApprovals: 'dashboard/pending-approvals',
-      borrowingToday: 'dashboard/borrowing-today',
-      mostBorrowed: 'dashboard/most-borrowed'
-    },
+    borrowingRequest: 'borrowings',
+    inventoryByBarcode: 'inventories/barcode/:ID',
+    dashboard: 'dashboard',
     inventory: {
       index: 'inventories',
       show: 'inventories/:ID',

@@ -1,160 +1,25 @@
-import { Card, Table, Tag, Badge, Space, Button, Avatar, Tooltip, Row, Col, Statistic, Divider, Typography } from "antd";
-import { InboxOutlined, UserOutlined, CalendarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, ArrowLeftOutlined, PhoneOutlined, MailOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { ArrowLeftOutlined, CalendarOutlined, CheckCircleOutlined, ClockCircleOutlined, CloseCircleOutlined, InboxOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { Avatar, Badge, Button, Card, Col, Row, Space, Spin, Statistic, Table, Tag, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import dayjs from "dayjs";
+import { useEffect } from "react";
+import { useParams } from "react-router";
+import { getInventoryByBarcode } from "~/stores/global/global.slice";
+import { useAppDispatch, useAppSelector } from "~/stores/hook";
+import type { IInventoryBorrowingResponse } from "~/types/main/inventory.types";
 
 const { Title, Text } = Typography;
 
-interface IInventoryBorrowingResponse {
-  id: number;
-  name: string;
-  quantity: string;
-  unit: string;
-  created_at: string;
-  updated_at: string;
-  category_name: string;
-  borrowings: Array<{
-    id: number;
-    kode_peminjaman: string;
-    nama: string;
-    email: string;
-    divisi: string;
-    nomor_identitas: string;
-    qty: string;
-    tgl_peminjaman: string;
-    tgl_pengembalian: string | null;
-    approved: string | null;
-    created_at: string;
-    updated_at: string;
-  }>;
-}
 
 export default function InventoryBorrowingDetailView() {
-  // Mock data untuk 1 item inventory dengan banyak peminjam
-  const inventoryItem: IInventoryBorrowingResponse = {
-    id: 1,
-    name: "Laptop Dell Inspiron 15",
-    quantity: "25",
-    unit: "pcs",
-    category_name: "Electronics",
-    created_at: "2024-01-01",
-    updated_at: "2024-01-15",
-    borrowings: [
-      {
-        id: 1,
-        kode_peminjaman: "BRW-20240115-001",
-        nama: "John Doe",
-        email: "john.doe@company.com",
-        divisi: "IT",
-        nomor_identitas: "EMP001",
-        qty: "2",
-        tgl_peminjaman: "2024-01-15",
-        tgl_pengembalian: null,
-        approved: "approved",
-        created_at: "2024-01-15",
-        updated_at: "2024-01-15"
-      },
-      {
-        id: 2,
-        kode_peminjaman: "BRW-20240110-002",
-        nama: "Jane Smith",
-        email: "jane.smith@company.com",
-        divisi: "Marketing",
-        nomor_identitas: "EMP002",
-        qty: "1",
-        tgl_peminjaman: "2024-01-10",
-        tgl_pengembalian: "2024-01-12",
-        approved: "approved",
-        created_at: "2024-01-10",
-        updated_at: "2024-01-12"
-      },
-      {
-        id: 3,
-        kode_peminjaman: "BRW-20240114-003",
-        nama: "Bob Johnson",
-        email: "bob.johnson@company.com",
-        divisi: "Sales",
-        nomor_identitas: "EMP003",
-        qty: "1",
-        tgl_peminjaman: "2024-01-14",
-        tgl_pengembalian: null,
-        approved: "pending",
-        created_at: "2024-01-14",
-        updated_at: "2024-01-14"
-      },
-      {
-        id: 4,
-        kode_peminjaman: "BRW-20240108-004",
-        nama: "Alice Brown",
-        email: "alice.brown@company.com",
-        divisi: "HR",
-        nomor_identitas: "EMP004",
-        qty: "1",
-        tgl_peminjaman: "2024-01-08",
-        tgl_pengembalian: null,
-        approved: "approved",
-        created_at: "2024-01-08",
-        updated_at: "2024-01-08"
-      },
-      {
-        id: 5,
-        kode_peminjaman: "BRW-20240105-005",
-        nama: "Charlie Wilson",
-        email: "charlie.wilson@company.com",
-        divisi: "Finance",
-        nomor_identitas: "EMP005",
-        qty: "3",
-        tgl_peminjaman: "2024-01-05",
-        tgl_pengembalian: "2024-01-07",
-        approved: "approved",
-        created_at: "2024-01-05",
-        updated_at: "2024-01-07"
-      },
-      {
-        id: 6,
-        kode_peminjaman: "BRW-20240112-006",
-        nama: "Diana Green",
-        email: "diana.green@company.com",
-        divisi: "Operations",
-        nomor_identitas: "EMP006",
-        qty: "2",
-        tgl_peminjaman: "2024-01-12",
-        tgl_pengembalian: null,
-        approved: "rejected",
-        created_at: "2024-01-12",
-        updated_at: "2024-01-12"
-      },
-      {
-        id: 7,
-        kode_peminjaman: "BRW-20240101-007",
-        nama: "Frank Miller",
-        email: "frank.miller@company.com",
-        divisi: "IT",
-        nomor_identitas: "EMP007",
-        qty: "1",
-        tgl_peminjaman: "2024-01-01",
-        tgl_pengembalian: null,
-        approved: "approved",
-        created_at: "2024-01-01",
-        updated_at: "2024-01-01"
-      },
-      {
-        id: 8,
-        kode_peminjaman: "BRW-20240113-008",
-        nama: "Grace Lee",
-        email: "grace.lee@company.com",
-        divisi: "Marketing",
-        nomor_identitas: "EMP008",
-        qty: "1",
-        tgl_peminjaman: "2024-01-13",
-        tgl_pengembalian: null,
-        approved: "pending",
-        created_at: "2024-01-13",
-        updated_at: "2024-01-13"
-      }
-    ]
-  };
+  const globalState = useAppSelector((state) => state.global);
+  const dispatch = useAppDispatch()
+  const { id } = useParams()
+
+  useEffect(() => {
+    dispatch(getInventoryByBarcode(Number(id)))
+  }, [id])
+
 
   const getStatusColor = (approved: string | null) => {
     switch (approved) {
@@ -168,7 +33,7 @@ export default function InventoryBorrowingDetailView() {
   const getStatusText = (approved: string | null) => {
     switch (approved) {
       case 'approved': return 'Approved';
-      case 'rejected': return 'Rejected'; 
+      case 'rejected': return 'Rejected';
       case 'pending': return 'Pending';
       default: return 'Unknown';
     }
@@ -191,18 +56,18 @@ export default function InventoryBorrowingDetailView() {
   };
 
   const getBorrowingStats = (borrowings: any[]) => {
-    const total = borrowings.length;
-    const active = borrowings.filter(b => !b.tgl_pengembalian && b.approved === 'approved').length;
-    const pending = borrowings.filter(b => b.approved === 'pending').length;
-    const returned = borrowings.filter(b => b.tgl_pengembalian).length;
-    const overdue = borrowings.filter(b => isOverdue(b.tgl_peminjaman, b.tgl_pengembalian)).length;
-    const totalBorrowed = borrowings.reduce((sum, b) => sum + parseInt(b.qty), 0);
-    
+    const total = borrowings?.length;
+    const active = borrowings?.filter(b => !b.tgl_pengembalian && b.approved === 'approved').length;
+    const pending = borrowings?.filter(b => b.approved === 'pending').length;
+    const returned = borrowings?.filter(b => b.tgl_pengembalian).length;
+    const overdue = borrowings?.filter(b => isOverdue(b.tgl_peminjaman, b.tgl_pengembalian)).length;
+    const totalBorrowed = borrowings?.reduce((sum, b) => sum + parseInt(b.qty), 0);
+
     return { total, active, pending, returned, overdue, totalBorrowed };
   };
 
-  const stats = getBorrowingStats(inventoryItem.borrowings);
-  const availableStock = parseInt(inventoryItem.quantity) - stats.active;
+  const stats = getBorrowingStats(globalState?.inventoryByBarcode?.data?.borrowings);
+  const availableStock = parseInt(globalState?.inventoryByBarcode?.data?.quantity) - stats.active;
 
   const borrowingColumns: ColumnsType<any> = [
     {
@@ -221,8 +86,8 @@ export default function InventoryBorrowingDetailView() {
       render: (_, record) => (
         <div className="space-y-2">
           <div className="flex items-center gap-2">
-            <Avatar 
-              size="small" 
+            <Avatar
+              size="small"
               style={{ backgroundColor: '#1890ff' }}
             >
               {record.nama.charAt(0).toUpperCase()}
@@ -247,9 +112,9 @@ export default function InventoryBorrowingDetailView() {
       width: 100,
       align: 'center',
       render: (qty) => (
-        <Badge 
-          count={`${qty} ${inventoryItem.unit}`} 
-          style={{ backgroundColor: '#52c41a' }} 
+        <Badge
+          count={`${qty} ${globalState?.inventoryByBarcode?.data?.unit}`}
+          style={{ backgroundColor: '#52c41a' }}
         />
       )
     },
@@ -306,8 +171,8 @@ export default function InventoryBorrowingDetailView() {
       ],
       onFilter: (value, record) => record.approved === value,
       render: (approved) => (
-        <Tag 
-          color={getStatusColor(approved)} 
+        <Tag
+          color={getStatusColor(approved)}
           icon={getStatusIcon(approved)}
           className="font-medium"
         >
@@ -329,175 +194,138 @@ export default function InventoryBorrowingDetailView() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        
-        {/* Header with Back Button */}
-        <Card>
-          <div className="flex items-center gap-4 mb-4">
-            <Button 
-              type="text" 
-              icon={<ArrowLeftOutlined />}
-              className="flex items-center"
-            >
-              Back to Inventory List
-            </Button>
-          </div>
-          
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <div className="p-3 bg-blue-100 rounded-lg">
-                <InboxOutlined className="text-2xl text-blue-600" />
-              </div>
-              <div>
-                <Title level={2} className="mb-1">{inventoryItem.name}</Title>
-                <Space size="middle">
-                  <Tag color="blue" className="font-medium">{inventoryItem.category_name}</Tag>
-                  <Text type="secondary">
-                    Created: {dayjs(inventoryItem.created_at).format('DD/MM/YYYY')}
-                  </Text>
-                  <Text type="secondary">
-                    Last Updated: {dayjs(inventoryItem.updated_at).format('DD/MM/YYYY')}
-                  </Text>
-                </Space>
+    <Spin spinning={globalState.inventoryByBarcode.loading}>
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto space-y-6">
+
+          <Card>
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-4">
+                <div className="p-3 bg-blue-100 rounded-lg">
+                  <InboxOutlined className="text-2xl text-blue-600" />
+                </div>
+                <div>
+                  <Title level={2} className="mb-1">{globalState?.inventoryByBarcode?.data?.name}</Title>
+                  <Space size="middle">
+                    <Tag color="blue" className="font-medium">{globalState?.inventoryByBarcode?.data?.category_name}</Tag>
+                    <Text type="secondary">
+                      Created: {dayjs(globalState?.inventoryByBarcode?.data?.created_at).format('DD/MM/YYYY')}
+                    </Text>
+                    <Text type="secondary">
+                      Last Updated: {dayjs(globalState?.inventoryByBarcode?.data?.updated_at).format('DD/MM/YYYY')}
+                    </Text>
+                  </Space>
+                </div>
               </div>
             </div>
-          </div>
-        </Card>
+          </Card>
 
-        {/* Inventory Statistics */}
-        <Row gutter={[16, 16]}>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Total Stock"
-                value={inventoryItem.quantity}
-                suffix={inventoryItem.unit}
-                valueStyle={{ color: '#1890ff', fontSize: '24px' }}
-                prefix={<InboxOutlined />}
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Available"
-                value={availableStock}
-                suffix={inventoryItem.unit}
-                valueStyle={{ color: '#52c41a', fontSize: '24px' }}
-                prefix={<CheckCircleOutlined />}
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Currently Borrowed"
-                value={stats.active}
-                suffix={inventoryItem.unit}
-                valueStyle={{ color: '#fa8c16', fontSize: '24px' }}
-                prefix={<UserOutlined />}
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Pending Approval"
-                value={stats.pending}
-                valueStyle={{ color: '#faad14', fontSize: '24px' }}
-                prefix={<ClockCircleOutlined />}
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Total Borrowings"
-                value={stats.total}
-                valueStyle={{ color: '#722ed1', fontSize: '24px' }}
-                prefix={<CalendarOutlined />}
-              />
-            </Card>
-          </Col>
-          <Col xs={24} sm={12} lg={4}>
-            <Card className="text-center">
-              <Statistic
-                title="Overdue Items"
-                value={stats.overdue}
-                valueStyle={{ color: '#f5222d', fontSize: '24px' }}
-                prefix={<CloseCircleOutlined />}
-              />
-              {stats.overdue > 0 && (
-                <Text type="danger" className="text-xs">Requires attention</Text>
-              )}
-            </Card>
-          </Col>
-        </Row>
-
-        {/* Borrowers List */}
-        <Card 
-          title={
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <UserOutlined className="text-blue-500" />
-                <span>Borrowing History & Current Borrowers</span>
-                <Badge count={stats.total} style={{ backgroundColor: '#1890ff' }} />
-              </div>
-              {stats.overdue > 0 && (
-                <Tag color="red" icon={<CloseCircleOutlined />}>
-                  {stats.overdue} Overdue Items
-                </Tag>
-              )}
-            </div>
-          }
-        >
-          <Table
-            columns={borrowingColumns}
-            dataSource={inventoryItem.borrowings}
-            rowKey="id"
-            pagination={{
-              pageSize: 10,
-              showSizeChanger: true,
-              showQuickJumper: true,
-              showTotal: (total, range) => 
-                `${range[0]}-${range[1]} of ${total} borrowing records`
-            }}
-            rowClassName={(record) => {
-              const overdue = isOverdue(record.tgl_peminjaman, record.tgl_pengembalian);
-              return `hover:bg-gray-50 ${overdue ? 'bg-red-50 border-l-4 border-red-400' : ''}`;
-            }}
-            scroll={{ x: 1200 }}
-          />
-        </Card>
-
-        {/* Quick Actions */}
-        <Card title="Quick Actions">
           <Row gutter={[16, 16]}>
-            <Col xs={24} sm={8}>
-              <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer">
-                <UserOutlined className="text-2xl text-blue-500 mb-2" />
-                <div className="font-medium">Add New Borrowing</div>
-                <div className="text-xs text-gray-500">Create borrowing request</div>
-              </div>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Total Stock"
+                  value={globalState?.inventoryByBarcode?.data?.quantity}
+                  suffix={globalState?.inventoryByBarcode?.data?.unit}
+                  valueStyle={{ color: '#1890ff', fontSize: '24px' }}
+                  prefix={<InboxOutlined />}
+                />
+              </Card>
             </Col>
-            <Col xs={24} sm={8}>
-              <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-sm transition-all cursor-pointer">
-                <CheckCircleOutlined className="text-2xl text-green-500 mb-2" />
-                <div className="font-medium">Process Returns</div>
-                <div className="text-xs text-gray-500">Mark items as returned</div>
-              </div>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Available"
+                  value={availableStock}
+                  suffix={globalState?.inventoryByBarcode?.data?.unit}
+                  valueStyle={{ color: '#52c41a', fontSize: '24px' }}
+                  prefix={<CheckCircleOutlined />}
+                />
+              </Card>
             </Col>
-            <Col xs={24} sm={8}>
-              <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-orange-300 hover:shadow-sm transition-all cursor-pointer">
-                <InboxOutlined className="text-2xl text-orange-500 mb-2" />
-                <div className="font-medium">Update Stock</div>
-                <div className="text-xs text-gray-500">Modify inventory quantity</div>
-              </div>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Currently Borrowed"
+                  value={stats.active}
+                  suffix={globalState?.inventoryByBarcode?.data?.unit}
+                  valueStyle={{ color: '#fa8c16', fontSize: '24px' }}
+                  prefix={<UserOutlined />}
+                />
+              </Card>
+            </Col>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Pending Approval"
+                  value={stats.pending}
+                  valueStyle={{ color: '#faad14', fontSize: '24px' }}
+                  prefix={<ClockCircleOutlined />}
+                />
+              </Card>
+            </Col>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Total Borrowings"
+                  value={stats.total}
+                  valueStyle={{ color: '#722ed1', fontSize: '24px' }}
+                  prefix={<CalendarOutlined />}
+                />
+              </Card>
+            </Col>
+            <Col xs={24} sm={12} lg={4}>
+              <Card className="text-center">
+                <Statistic
+                  title="Overdue Items"
+                  value={stats.overdue}
+                  valueStyle={{ color: '#f5222d', fontSize: '24px' }}
+                  prefix={<CloseCircleOutlined />}
+                />
+                {stats.overdue > 0 && (
+                  <Text type="danger" className="text-xs">Requires attention</Text>
+                )}
+              </Card>
             </Col>
           </Row>
-        </Card>
+
+          <Card
+            title={
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <UserOutlined className="text-blue-500" />
+                  <span>Borrowing History & Current Borrowers</span>
+                  <Badge count={stats.total} style={{ backgroundColor: '#1890ff' }} />
+                </div>
+                {stats.overdue > 0 && (
+                  <Tag color="red" icon={<CloseCircleOutlined />}>
+                    {stats.overdue} Overdue Items
+                  </Tag>
+                )}
+              </div>
+            }
+          >
+            <Table
+              columns={borrowingColumns}
+              dataSource={globalState?.inventoryByBarcode?.data?.borrowings}
+              rowKey="id"
+              pagination={{
+                pageSize: 10,
+                showSizeChanger: true,
+                showQuickJumper: true,
+                showTotal: (total, range) =>
+                  `${range[0]}-${range[1]} of ${total} borrowing records`
+              }}
+              rowClassName={(record) => {
+                const overdue = isOverdue(record.tgl_peminjaman, record.tgl_pengembalian);
+                return `hover:bg-gray-50 ${overdue ? 'bg-red-50 border-l-4 border-red-400' : ''}`;
+              }}
+              scroll={{ x: 1200 }}
+            />
+          </Card>
+
+        </div>
       </div>
-    </div>
+    </Spin>
   );
 }

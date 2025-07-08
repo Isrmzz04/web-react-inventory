@@ -15,6 +15,8 @@ import type { TInventoryState } from "./main/inventory/inventory.slice"
 import inventorySlice from "./main/inventory/inventory.slice"
 import type { TBorrowingState } from "./main/borrowing/borrowing.slice"
 import borrowingSlice from "./main/borrowing/borrowing.slice"
+import type { TDashboardState } from "./main/dashboard/dashboard.slice"
+import dashboardSlice from "./main/dashboard/dashboard.slice"
 
 const createNoopStorage = () => {
   return {
@@ -37,6 +39,7 @@ const storage = typeof window !== 'undefined'
 interface RootState {
   global: IGlobalState;
   auth: IAuthState
+  dashboard: TDashboardState
   category: TCategoryState
   location: TLocationState
   supplier: TSupplierState
@@ -55,6 +58,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   global: globalSlice,
   auth: authSlice,
+  dashboard: dashboardSlice,
   category: categorySlice,
   location: locationSlice,
   supplier: supplierSlice,

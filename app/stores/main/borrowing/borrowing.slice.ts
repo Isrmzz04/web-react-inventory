@@ -1,8 +1,7 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import type { IPageInfoResponse, TRequestParams } from '~/types/global.types'
 import type { IBorrowingRequest, IBorrowingResponse } from '~/types/main/borrowing.types'
 import * as BorrowingAction from './borrowing.action'
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import type { IPageInfoResponse, TPage, TRequestParams } from '~/types/global.types'
-import mockBorrowings from "~/mocks/borrowings.json"
 
 export const getAllBorrowings = createAsyncThunk('borrowing/index', async (payload: TRequestParams) => {
   try {
@@ -86,9 +85,9 @@ export type TBorrowingState = {
 const initialState: TBorrowingState = {
   isLoading: false,
   isError: false,
-  listBorrowings: mockBorrowings.data.page_data,
+  listBorrowings: [],
   detailBorrowing: {} as IBorrowingResponse,
-  pagination: mockBorrowings.data.page_info as IPageInfoResponse
+  pagination: {} as IPageInfoResponse
 }
 
 const borrowingSlice = createSlice({
