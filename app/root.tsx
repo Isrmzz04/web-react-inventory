@@ -72,7 +72,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         }
       } else {
         if (currentPath === "/login") {
-          navigate("/");
+          navigate("/dashboard");
         }
       }
     }

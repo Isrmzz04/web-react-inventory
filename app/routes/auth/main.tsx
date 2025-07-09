@@ -22,7 +22,7 @@ export default function Auth() {
               success('Login berhasil! Anda akan dialihkan ke dashboard.', 'Berhasil');
 
               setTimeout(() => {
-                !auth.isLoading && navigate('/');
+                !auth.isLoading && navigate('/dashboard');
               }, 1000);
             } else {
               error('Login gagal. Periksa username dan password Anda.', 'Login Gagal');
