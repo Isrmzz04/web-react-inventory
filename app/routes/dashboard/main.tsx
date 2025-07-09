@@ -1,6 +1,5 @@
 import {
   AppstoreOutlined,
-  ArrowUpOutlined,
   CalendarOutlined,
   ClockCircleOutlined,
   EnvironmentOutlined,
@@ -12,6 +11,7 @@ import {
 import { Card, Col, List, Progress, QRCode, Row, Spin, Statistic, Tag } from "antd";
 import dayjs from "dayjs";
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import Base from "~/components/shared/base/base";
 import { useAppDispatch, useAppSelector } from "~/stores/hook";
 import { getDashboard } from "~/stores/main/dashboard/dashboard.slice";
@@ -20,9 +20,47 @@ export default function Dashboard() {
   const dashboardState = useAppSelector((state) => state.dashboard)
   const dispatch = useAppDispatch()
 
+
   useEffect(() => {
     dispatch(getDashboard())
   }, [])
+
+  const navigate = useNavigate();
+
+  const quickActionItems = [
+    {
+      icon: <InboxOutlined className="text-2xl text-blue-500 mb-2" />,
+      title: "Tambah Inventaris",
+      description: "Tambah item baru",
+      route: "/inventory-management/inventories",
+      hoverColor: "hover:border-blue-300"
+    },
+    {
+      icon: <SwapOutlined className="text-2xl text-green-500 mb-2" />,
+      title: "Peminjaman Baru",
+      description: "Buat permintaan",
+      route: "/borrowing-request",
+      hoverColor: "hover:border-green-300"
+    },
+    {
+      icon: <EnvironmentOutlined className="text-2xl text-purple-500 mb-2" />,
+      title: "Tambah Lokasi",
+      description: "Penyimpanan baru",
+      route: "/inventory-management/locations",
+      hoverColor: "hover:border-purple-300"
+    },
+    {
+      icon: <ShopOutlined className="text-2xl text-orange-500 mb-2" />,
+      title: "Tambah Supplier",
+      description: "Supplier baru",
+      route: "/inventory-management/suppliers",
+      hoverColor: "hover:border-orange-300"
+    }
+  ];
+
+  const handleQuickAction = (route: string) => {
+    navigate(route);
+  };
 
   return (
     <Base>
@@ -33,11 +71,11 @@ export default function Dashboard() {
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
                 <p className="text-gray-600 mt-1">
-                  Welcome back! Here's what's happening with your inventory.
+                  Selamat datang kembali! Anda sedang berada pada admin panel Sistem Inventaris
                 </p>
               </div>
               <div className="text-sm text-gray-500">
-                Last updated: {dayjs().format('DD/MM/YYYY HH:mm')}
+                Terakhir diperbarui: {dayjs().format('DD/MM/YYYY HH:mm')}
               </div>
             </div>
           </div>
@@ -46,13 +84,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Total Inventories"
+                  title="Total Inventaris"
                   value={dashboardState?.datas?.statistic?.totalInventories}
                   prefix={<InboxOutlined className="text-blue-500" />}
                   valueStyle={{ color: '#1890ff' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                 All Item
+                  Semua Item
                 </div>
               </Card>
             </Col>
@@ -60,13 +98,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Total Categories"
+                  title="Total Kategori"
                   value={dashboardState?.datas?.statistic?.totalCategories}
                   prefix={<AppstoreOutlined className="text-green-500" />}
                   valueStyle={{ color: '#52c41a' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  Active categories
+                  Kategori aktif
                 </div>
               </Card>
             </Col>
@@ -74,13 +112,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Total Locations"
+                  title="Total Lokasi"
                   value={dashboardState?.datas?.statistic?.totalLocations}
                   prefix={<EnvironmentOutlined className="text-purple-500" />}
                   valueStyle={{ color: '#722ed1' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  Storage locations
+                  Lokasi penyimpanan
                 </div>
               </Card>
             </Col>
@@ -88,13 +126,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Total Suppliers"
+                  title="Total Supplier"
                   value={dashboardState?.datas?.statistic?.totalSuppliers}
                   prefix={<ShopOutlined className="text-orange-500" />}
                   valueStyle={{ color: '#fa8c16' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  Active suppliers
+                  Supplier aktif
                 </div>
               </Card>
             </Col>
@@ -104,13 +142,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Total Borrowings"
+                  title="Total Peminjaman"
                   value={dashboardState?.datas?.statistic?.totalBorrowings}
                   prefix={<SwapOutlined className="text-cyan-500" />}
                   valueStyle={{ color: '#13c2c2' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  All time borrowings
+                  Semua peminjaman
                 </div>
               </Card>
             </Col>
@@ -118,13 +156,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Pending Approval"
+                  title="Menunggu Persetujuan"
                   value={dashboardState?.datas?.statistic?.pendingApprovals}
                   prefix={<ClockCircleOutlined className="text-yellow-500" />}
                   valueStyle={{ color: '#faad14' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  Requires attention
+                  Memerlukan perhatian
                 </div>
               </Card>
             </Col>
@@ -132,13 +170,13 @@ export default function Dashboard() {
             <Col xs={24} sm={12} lg={6}>
               <Card className="hover:shadow-md transition-shadow">
                 <Statistic
-                  title="Borrowings Today"
+                  title="Peminjaman Hari Ini"
                   value={dashboardState?.datas?.statistic?.borrowingToday}
                   prefix={<CalendarOutlined className="text-red-500" />}
                   valueStyle={{ color: '#f5222d' }}
                 />
                 <div className="mt-2 text-xs text-gray-500">
-                  New requests today
+                  Permintaan baru hari ini
                 </div>
               </Card>
             </Col>
@@ -148,12 +186,12 @@ export default function Dashboard() {
                 <div className="flex items-center gap-3">
                   <TrophyOutlined className="text-2xl text-yellow-600" />
                   <div>
-                    <div className="text-sm text-gray-600 font-medium">Most Borrowed</div>
+                    <div className="text-sm text-gray-600 font-medium">Paling Banyak Dipinjam</div>
                     <div className="text-xl font-bold text-yellow-700">
                       {dashboardState?.datas?.statistic?.mostBorrowed.name}
                     </div>
                     <div className="text-sm text-yellow-600">
-                      {dashboardState?.datas?.statistic?.mostBorrowed.totalBorrowed} times borrowed
+                      {dashboardState?.datas?.statistic?.mostBorrowed.totalBorrowed} kali dipinjam
                     </div>
                   </div>
                 </div>
@@ -167,13 +205,13 @@ export default function Dashboard() {
                 title={
                   <div className="flex items-center gap-2">
                     <ClockCircleOutlined className="text-blue-500" />
-                    <span>Borrowing Request Form QR Code</span>
+                    <span>QR Code Form Permintaan Peminjaman</span>
                   </div>
                 }
                 className="h-full"
               >
                 {/* QR CODE */}
-                <QRCode value={'https://sistem-inventaris.my.id/be/borrowing-request'} />
+                <QRCode value={'https://sistem-inventaris.my.id/borrowing-request'} />
               </Card>
             </Col>
 
@@ -182,9 +220,9 @@ export default function Dashboard() {
                 title={
                   <div className="flex items-center gap-2">
                     <InboxOutlined className="text-red-500" />
-                    <span>Low Stock Alert</span>
+                    <span>Peringatan Stok Rendah</span>
                     <Tag color="red">
-                      {dashboardState?.datas?.lowStockItems?.length} items
+                      {dashboardState?.datas?.lowStockItems?.length} item
                     </Tag>
                   </div>
                 }
@@ -217,7 +255,7 @@ export default function Dashboard() {
                               showInfo={false}
                               className="flex-1"
                             />
-                            <span className="text-xs text-red-500">Low stock</span>
+                            <span className="text-xs text-red-500">Stok rendah</span>
                           </div>
                         }
                       />
@@ -232,39 +270,23 @@ export default function Dashboard() {
             title={
               <div className="flex items-center gap-2">
                 <AppstoreOutlined className="text-blue-500" />
-                <span>Quick Actions</span>
+                <span>Aksi Cepat</span>
               </div>
             }
           >
             <Row gutter={[16, 16]}>
-              <Col xs={24} sm={12} md={6}>
-                <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-sm transition-all cursor-pointer">
-                  <InboxOutlined className="text-2xl text-blue-500 mb-2" />
-                  <div className="font-medium">Add Inventory</div>
-                  <div className="text-xs text-gray-500">Add new items</div>
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={6}>
-                <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-green-300 hover:shadow-sm transition-all cursor-pointer">
-                  <SwapOutlined className="text-2xl text-green-500 mb-2" />
-                  <div className="font-medium">New Borrowing</div>
-                  <div className="text-xs text-gray-500">Create request</div>
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={6}>
-                <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-purple-300 hover:shadow-sm transition-all cursor-pointer">
-                  <EnvironmentOutlined className="text-2xl text-purple-500 mb-2" />
-                  <div className="font-medium">Add Location</div>
-                  <div className="text-xs text-gray-500">New storage</div>
-                </div>
-              </Col>
-              <Col xs={24} sm={12} md={6}>
-                <div className="text-center p-4 border border-gray-200 rounded-lg hover:border-orange-300 hover:shadow-sm transition-all cursor-pointer">
-                  <ShopOutlined className="text-2xl text-orange-500 mb-2" />
-                  <div className="font-medium">Add Supplier</div>
-                  <div className="text-xs text-gray-500">New supplier</div>
-                </div>
-              </Col>
+              {quickActionItems.map((item, index) => (
+                <Col xs={24} sm={12} md={6} key={index}>
+                  <div
+                    className={`text-center p-4 border border-gray-200 rounded-lg ${item.hoverColor} hover:shadow-sm transition-all cursor-pointer`}
+                    onClick={() => handleQuickAction(item.route)}
+                  >
+                    {item.icon}
+                    <div className="font-medium">{item.title}</div>
+                    <div className="text-xs text-gray-500">{item.description}</div>
+                  </div>
+                </Col>
+              ))}
             </Row>
           </Card>
         </div>

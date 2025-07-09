@@ -13,12 +13,12 @@ const { Title, Text, Link } = Typography;
 const divisiOptions = [
   'IT',
   'Marketing',
-  'Finance',
-  'Operations',
-  'Human Resources',
-  'Sales',
-  'Customer Service',
-  'Research & Development'
+  'Keuangan',
+  'Operasional',
+  'SDM',
+  'Penjualan',
+  'Layanan Pelanggan',
+  'Riset & Pengembangan'
 ];
 
 export default function BorrowingRequest() {
@@ -79,7 +79,7 @@ export default function BorrowingRequest() {
         callback: (code: number, payload: IBorrowingResponse) => {
           if (code === 201) {
             notification.success({
-              message: 'Success',
+              message: 'Berhasil',
               duration: 2
             })
             setSuccessModal({
@@ -94,7 +94,7 @@ export default function BorrowingRequest() {
     }).catch(() => {
       notification.error({
         message: 'Error',
-        description: 'Failed to load category details',
+        description: 'Gagal memuat detail kategori',
         duration: 3
       })
     })
@@ -120,9 +120,9 @@ export default function BorrowingRequest() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
             </svg>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-3">Equipment Borrowing Request</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-3">Permintaan Peminjaman Peralatan</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Submit your equipment request with ease. Our team will review and respond within 24 hours.
+            Ajukan permintaan peralatan Anda dengan mudah. Tim kami akan meninjau dan merespons dalam 24 jam.
           </p>
         </div>
 
@@ -141,23 +141,23 @@ export default function BorrowingRequest() {
               >
                 <div>
                   <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Personal Information</h2>
-                    <p className="text-sm text-gray-500">Please provide your contact details</p>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Informasi Pribadi</h2>
+                    <p className="text-sm text-gray-500">Harap berikan detail kontak Anda</p>
                   </div>
 
                   <Row gutter={16}>
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Full Name</span>}
+                        label={<span className="text-gray-700 font-medium">Nama Lengkap</span>}
                         name="nama"
                         rules={[
-                          { required: true, message: 'Please enter your full name!' },
-                          { min: 2, message: 'Name must be at least 2 characters!' }
+                          { required: true, message: 'Harap masukkan nama lengkap Anda!' },
+                          { min: 2, message: 'Nama harus minimal 2 karakter!' }
                         ]}
                       >
                         <Input
                           prefix={<UserOutlined className="text-gray-400" />}
-                          placeholder="Enter your full name"
+                          placeholder="Masukkan nama lengkap Anda"
                           className="h-11 border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-sm"
                         />
                       </Form.Item>
@@ -165,16 +165,16 @@ export default function BorrowingRequest() {
 
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Email Address</span>}
+                        label={<span className="text-gray-700 font-medium">Alamat Email</span>}
                         name="email"
                         rules={[
-                          { required: true, message: 'Please enter your email!' },
-                          { type: 'email', message: 'Please enter a valid email!' }
+                          { required: true, message: 'Harap masukkan email Anda!' },
+                          { type: 'email', message: 'Harap masukkan email yang valid!' }
                         ]}
                       >
                         <Input
                           prefix={<MailOutlined className="text-gray-400" />}
-                          placeholder="your.email@company.com"
+                          placeholder="email.anda@perusahaan.com"
                           className="h-11 border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-sm"
                         />
                       </Form.Item>
@@ -184,12 +184,12 @@ export default function BorrowingRequest() {
                   <Row gutter={16}>
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Division</span>}
+                        label={<span className="text-gray-700 font-medium">Divisi</span>}
                         name="divisi"
-                        rules={[{ required: true, message: 'Please select your division!' }]}
+                        rules={[{ required: true, message: 'Harap pilih divisi Anda!' }]}
                       >
                         <Select
-                          placeholder="Select your division"
+                          placeholder="Pilih divisi Anda"
                           suffixIcon={<TeamOutlined className="text-gray-400" />}
                           className="h-11"
                           dropdownClassName="rounded-lg shadow-lg border border-gray-200"
@@ -203,16 +203,16 @@ export default function BorrowingRequest() {
 
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Employee ID</span>}
+                        label={<span className="text-gray-700 font-medium">ID Karyawan</span>}
                         name="nomor_identitas"
                         rules={[
-                          { required: true, message: 'Please enter your ID number!' },
-                          { min: 5, message: 'ID number must be at least 5 characters!' }
+                          { required: true, message: 'Harap masukkan nomor ID Anda!' },
+                          { min: 5, message: 'Nomor ID harus minimal 5 karakter!' }
                         ]}
                       >
                         <Input
                           prefix={<IdcardOutlined className="text-gray-400" />}
-                          placeholder="Enter your employee ID"
+                          placeholder="Masukkan ID karyawan Anda"
                           className="h-11 border-gray-300 rounded-lg focus:border-blue-500 focus:shadow-sm"
                         />
                       </Form.Item>
@@ -222,18 +222,18 @@ export default function BorrowingRequest() {
 
                 <div>
                   <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Equipment Selection</h2>
-                    <p className="text-sm text-gray-500">Choose the equipment and specify details</p>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Pemilihan Peralatan</h2>
+                    <p className="text-sm text-gray-500">Pilih peralatan dan tentukan detail</p>
                   </div>
 
                   <Form.Item
-                    label={<span className="text-gray-700 font-medium">Available Equipment</span>}
+                    label={<span className="text-gray-700 font-medium">Peralatan Tersedia</span>}
                     name="inventory_id"
-                    rules={[{ required: true, message: 'Please select equipment!' }]}
+                    rules={[{ required: true, message: 'Harap pilih peralatan!' }]}
                     className="mb-6"
                   >
                     <Select
-                      placeholder="Search and select equipment"
+                      placeholder="Cari dan pilih peralatan"
                       onChange={handleInventoryChange}
                       className="h-11"
                       showSearch
@@ -250,7 +250,7 @@ export default function BorrowingRequest() {
                           <div className="flex justify-between items-center py-2">
                             <div className="flex-1">
                               <div className="font-medium text-gray-900 text-sm leading-tight">{item.name}</div>
-                              <div className="text-xs text-gray-500 mt-1">Stock: {item.quantity} {item.unit}</div>
+                              <div className="text-xs text-gray-500 mt-1">Stok: {item.quantity} {item.unit}</div>
                             </div>
                             <div className="ml-3">
                               <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
@@ -258,7 +258,7 @@ export default function BorrowingRequest() {
                                   ? 'bg-green-100 text-green-800' 
                                   : 'bg-red-100 text-red-800'
                               }`}>
-                                {parseInt(item.quantity) > 0 ? 'Available' : 'Out of Stock'}
+                                {parseInt(item.quantity) > 0 ? 'Tersedia' : 'Stok Habis'}
                               </span>
                             </div>
                           </div>
@@ -277,7 +277,7 @@ export default function BorrowingRequest() {
                         </div>
                         <div>
                           <p className="font-medium text-gray-900">{getInventoryName()}</p>
-                          <p className="text-sm text-gray-600">Maximum available: {getMaxQuantity()} units</p>
+                          <p className="text-sm text-gray-600">Maksimal tersedia: {getMaxQuantity()} unit</p>
                         </div>
                       </div>
                     </div>
@@ -286,17 +286,17 @@ export default function BorrowingRequest() {
                   <Row gutter={16}>
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Quantity Needed</span>}
+                        label={<span className="text-gray-700 font-medium">Jumlah yang Dibutuhkan</span>}
                         name="qty"
                         rules={[
-                          { required: true, message: 'Please enter quantity!' },
-                          { type: 'number', min: 1, message: 'Quantity must be at least 1!' }
+                          { required: true, message: 'Harap masukkan jumlah!' },
+                          { type: 'number', min: 1, message: 'Jumlah harus minimal 1!' }
                         ]}
                       >
                         <InputNumber
                           min={1}
                           max={getMaxQuantity()}
-                          placeholder="Enter quantity"
+                          placeholder="Masukkan jumlah"
                           className="!w-full h-11"
                           disabled={!selectedInventory}
                         />
@@ -305,12 +305,12 @@ export default function BorrowingRequest() {
 
                     <Col xs={24} md={12}>
                       <Form.Item
-                        label={<span className="text-gray-700 font-medium">Borrowing Date</span>}
+                        label={<span className="text-gray-700 font-medium">Tanggal Peminjaman</span>}
                         name="tgl_peminjaman"
-                        rules={[{ required: true, message: 'Please select borrowing date!' }]}
+                        rules={[{ required: true, message: 'Harap pilih tanggal peminjaman!' }]}
                       >
                         <DatePicker
-                          placeholder="Select date"
+                          placeholder="Pilih tanggal"
                           className="w-full h-11"
                           suffixIcon={<CalendarOutlined className="text-gray-400" />}
                           disabledDate={(current) => current && current.valueOf() < Date.now()}
@@ -329,7 +329,7 @@ export default function BorrowingRequest() {
                     size="large"
                     className="w-full h-12 bg-blue-600 hover:bg-blue-700 border-blue-600 hover:border-blue-700 rounded-lg font-medium text-base shadow-sm"
                   >
-                    {globalState.borrowingRequest.loading ? 'Processing Request...' : 'Submit Request'}
+                    {globalState.borrowingRequest.loading ? 'Memproses Permintaan...' : 'Kirim Permintaan'}
                   </Button>
                 </div>
               </Form>
@@ -346,7 +346,7 @@ export default function BorrowingRequest() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <span className="font-semibold text-gray-900">Request Process</span>
+                    <span className="font-semibold text-gray-900">Proses Permintaan</span>
                   </div>
                 }
                 className="shadow-sm border border-gray-200 rounded-xl"
@@ -358,8 +358,8 @@ export default function BorrowingRequest() {
                       <span className="text-xs font-semibold text-blue-600">1</span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Submit Request</p>
-                      <p className="text-xs text-gray-500">Fill and submit the form</p>
+                      <p className="font-medium text-gray-900 text-sm">Kirim Permintaan</p>
+                      <p className="text-xs text-gray-500">Isi dan kirim formulir</p>
                     </div>
                   </div>
                   
@@ -368,8 +368,8 @@ export default function BorrowingRequest() {
                       <span className="text-xs font-semibold text-blue-600">2</span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Review Process</p>
-                      <p className="text-xs text-gray-500">Team reviews your request</p>
+                      <p className="font-medium text-gray-900 text-sm">Proses Peninjauan</p>
+                      <p className="text-xs text-gray-500">Tim meninjau permintaan Anda</p>
                     </div>
                   </div>
                   
@@ -378,8 +378,8 @@ export default function BorrowingRequest() {
                       <span className="text-xs font-semibold text-blue-600">3</span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Notification</p>
-                      <p className="text-xs text-gray-500">Receive approval notification</p>
+                      <p className="font-medium text-gray-900 text-sm">Notifikasi</p>
+                      <p className="text-xs text-gray-500">Terima notifikasi persetujuan</p>
                     </div>
                   </div>
                   
@@ -388,8 +388,8 @@ export default function BorrowingRequest() {
                       <span className="text-xs font-semibold text-blue-600">4</span>
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">Equipment Pickup</p>
-                      <p className="text-xs text-gray-500">Collect your equipment</p>
+                      <p className="font-medium text-gray-900 text-sm">Pengambilan Peralatan</p>
+                      <p className="text-xs text-gray-500">Ambil peralatan Anda</p>
                     </div>
                   </div>
                 </div>
@@ -403,7 +403,7 @@ export default function BorrowingRequest() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg>
                     </div>
-                    <span className="font-semibold text-gray-900">Important Notes</span>
+                    <span className="font-semibold text-gray-900">Catatan Penting</span>
                   </div>
                 }
                 className="shadow-sm border border-gray-200 rounded-xl"
@@ -412,19 +412,19 @@ export default function BorrowingRequest() {
                 <div className="space-y-3 text-sm text-gray-600">
                   <div className="flex items-start">
                     <span className="text-blue-600 mr-2">•</span>
-                    <span>Requests are processed within 24 hours during business days</span>
+                    <span>Permintaan diproses dalam 24 jam selama hari kerja</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-blue-600 mr-2">•</span>
-                    <span>Valid employee ID is required for verification</span>
+                    <span>ID karyawan yang valid diperlukan untuk verifikasi</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-blue-600 mr-2">•</span>
-                    <span>Equipment must be returned in good condition</span>
+                    <span>Peralatan harus dikembalikan dalam kondisi baik</span>
                   </div>
                   <div className="flex items-start">
                     <span className="text-blue-600 mr-2">•</span>
-                    <span>Late returns may affect future borrowing privileges</span>
+                    <span>Keterlambatan pengembalian dapat mempengaruhi hak peminjaman di masa depan</span>
                   </div>
                 </div>
               </Card>
@@ -437,7 +437,7 @@ export default function BorrowingRequest() {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
                     </div>
-                    <span className="font-semibold text-gray-900">Need Help?</span>
+                    <span className="font-semibold text-gray-900">Butuh Bantuan?</span>
                   </div>
                 }
                 className="shadow-sm border border-gray-200 rounded-xl"
@@ -445,13 +445,13 @@ export default function BorrowingRequest() {
               >
                 <div className="space-y-3 text-sm">
                   <div>
-                    <p className="font-medium text-gray-900">IT Support</p>
-                    <p className="text-gray-600">support@company.com</p>
+                    <p className="font-medium text-gray-900">Dukungan IT</p>
+                    <p className="text-gray-600">support@perusahaan.com</p>
                     <p className="text-gray-600">Ext. 2234</p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">Equipment Manager</p>
-                    <p className="text-gray-600">equipment@company.com</p>
+                    <p className="font-medium text-gray-900">Manajer Peralatan</p>
+                    <p className="text-gray-600">equipment@perusahaan.com</p>
                     <p className="text-gray-600">Ext. 2156</p>
                   </div>
                 </div>
@@ -476,16 +476,16 @@ export default function BorrowingRequest() {
           />
           
           <Title level={2} className="text-green-600 mb-2">
-            🎉 Request Successful!
+            🎉 Permintaan Berhasil!
           </Title>
           
           <Text className="text-gray-600 text-lg block mb-4">
-            Your borrowing request has been submitted successfully
+            Permintaan peminjaman Anda telah berhasil dikirim
           </Text>
           
           <div className="bg-gray-50 p-4 rounded-lg mb-6">
             <Text strong className="text-gray-800 block mb-2">
-              Your Borrowing Code:
+              Kode Peminjaman Anda:
             </Text>
             <div className="bg-white p-3 rounded border-2 border-dashed border-blue-300">
               <Text 
@@ -496,16 +496,16 @@ export default function BorrowingRequest() {
               </Text>
             </div>
             <Text className="text-sm text-gray-500 mt-2 block">
-              💡 Keep this code safe - you'll need it to track your request
+              💡 Simpan kode ini dengan aman - Anda akan membutuhkannya untuk melacak permintaan Anda
             </Text>
           </div>
 
           <div className="bg-blue-50 p-4 rounded-lg mb-6 border border-blue-200">
             <Text strong className="text-blue-800 block mb-2">
-              📱 Stay Updated with Our Telegram Bot
+              📱 Tetap Update dengan Bot Telegram Kami
             </Text>
             <Text className="text-blue-600 text-sm block mb-3">
-              Get real-time notifications about your borrowing status, equipment availability, and important updates directly on Telegram!
+              Dapatkan notifikasi real-time tentang status peminjaman Anda, ketersediaan peralatan, dan update penting langsung di Telegram!
             </Text>
             <Button
               type="primary"
@@ -513,17 +513,17 @@ export default function BorrowingRequest() {
               onClick={openTelegramBot}
               className="bg-blue-500 hover:bg-blue-600 border-blue-500 hover:border-blue-600"
             >
-              Join Pelindo Inventory Bot
+              Bergabung dengan Bot Inventaris Pelindo
             </Button>
           </div>
 
           <Text className="text-gray-500 text-sm block mb-4">
-            ✅ What's next? Our team will review your request and contact you within 24 hours
+            ✅ Apa selanjutnya? Tim kami akan meninjau permintaan Anda dan menghubungi Anda dalam 24 jam
           </Text>
 
           <Space>
             <Button onClick={handleModalClose} size="large">
-              Close
+              Tutup
             </Button>
             <Button 
               type="primary" 
@@ -531,7 +531,7 @@ export default function BorrowingRequest() {
               size="large"
               className="bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700"
             >
-              Create Another Request
+              Buat Permintaan Lain
             </Button>
           </Space>
         </div>

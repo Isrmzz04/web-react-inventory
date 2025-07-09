@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Flex, Layout, Menu, Modal } from 'antd';
 import { useNavigate, useLocation } from 'react-router';
 import type { MenuProps } from 'antd';
-// import menuDummy from '~/mocks/menu.json';
 import { getIconComponent } from './menu-config';
 import type { MenuItem } from '~/types/global.types';
 import { useAppDispatch, useAppSelector } from '~/stores/hook';
@@ -154,19 +153,19 @@ export default function Sider(props: ISider) {
         <IconSquareRoundedArrowLeftFilled className='w-8 h-8 cursor-pointer text-[#d55559]' onClick={showLogoutModal} />
       </Flex>
       <Modal
-        title="Confirm Logout"
+        title="Konfirmasi Keluar"
         open={isLogoutModalOpen}
         onOk={handleLogoutConfirm}
         onCancel={handleLogoutCancel}
-        okText="Yes, I'm Sure"
-        cancelText="Cancel"
+        okText="Ya, Saya Ingin Keluar"
+        cancelText="Batal"
         okType="danger"
         centered
         width={400}
       >
         <div className="py-4">
           <p className="text-gray-600">
-            Are you sure you want to log out of the app? You will be redirected to the login page.
+            Yakin ingin keluar dari aplikasi? Anda akan diarahkan ke halaman login.
           </p>
         </div>
       </Modal>
