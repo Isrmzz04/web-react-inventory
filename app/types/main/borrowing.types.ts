@@ -39,6 +39,7 @@ export interface IBorrowingRequest {
   qty: number;
   tgl_peminjaman: any
   tgl_pengembalian?: any;
+  approved?: any
 }
 
 export interface IBrowseView extends IPagination {

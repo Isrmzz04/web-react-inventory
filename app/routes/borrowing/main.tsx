@@ -71,8 +71,7 @@ export default function Borrowings() {
   const onSubmit = () => {
     return form?.validateFields().then((values) => {
       values.tgl_peminjaman = dayjs(values.tgl_peminjaman).format('YYYY-MM-DD')
-      values.tgl_pengembalian = dayjs(values.tgl_pengembalian).format('YYYY-MM-DD')
-      
+      values.tgl_pengembalian = dayjs(values.tgl_pengembalian).format('YYYY-MM-DD') ?? ''
       if (!isEdit) {
         dispatch(createBorrowing({
           payload: values,

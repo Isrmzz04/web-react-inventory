@@ -11,15 +11,17 @@ const { Option } = Select;
 const { Title, Text, Link } = Typography;
 
 const divisiOptions = [
-  'IT',
-  'Marketing',
-  'Keuangan',
-  'Operasional',
-  'SDM',
-  'Penjualan',
-  'Layanan Pelanggan',
-  'Riset & Pengembangan'
-];
+  { value: 'IT', label: 'Information Technology' },
+  { value: 'HR', label: 'Human Resources' },
+  { value: 'Finance', label: 'Finance' },
+  { value: 'Marketing', label: 'Marketing' },
+  { value: 'Operations', label: 'Operations' },
+  { value: 'Sales', label: 'Sales' },
+  { value: 'Admin', label: 'Administration' },
+  { value: 'Production', label: 'Production' },
+  { value: 'QA', label: 'Quality Assurance' },
+  { value: 'Logistics', label: 'Logistics' }
+]
 
 export default function BorrowingRequest() {
   const [form] = Form.useForm();
@@ -28,7 +30,7 @@ export default function BorrowingRequest() {
     visible: false,
     borrowingCode: ''
   });
-  
+
   const inventoryState = useAppSelector((state) => state.inventory)
   const globalState = useAppSelector((state) => state.global);
   const dispatch = useAppDispatch()
@@ -74,6 +76,7 @@ export default function BorrowingRequest() {
   const handleSubmit = async (values: IBorrowingRequest) => {
     return form?.validateFields().then((values) => {
       values.tgl_peminjaman = dayjs(values.tgl_peminjaman).format('YYYY-MM-DD');
+      // values.approved = null
       dispatch(createBorrowing({
         payload: values,
         callback: (code: number, payload: IBorrowingResponse) => {
@@ -128,7 +131,7 @@ export default function BorrowingRequest() {
 
         <Row gutter={32} align="top">
           <Col xs={24} lg={16}>
-            <Card 
+            <Card
               className="shadow-sm border border-gray-200 rounded-xl"
               bodyStyle={{ padding: '32px' }}
             >
@@ -189,13 +192,15 @@ export default function BorrowingRequest() {
                         rules={[{ required: true, message: 'Harap pilih divisi Anda!' }]}
                       >
                         <Select
-                          placeholder="Pilih divisi Anda"
-                          suffixIcon={<TeamOutlined className="text-gray-400" />}
-                          className="h-11"
-                          dropdownClassName="rounded-lg shadow-lg border border-gray-200"
+                          placeholder="Select division"
+                          size="large"
+                          showSearch
+                          optionFilterProp="children"
                         >
-                          {divisiOptions.map(divisi => (
-                            <Option key={divisi} value={divisi}>{divisi}</Option>
+                          {divisiOptions.map((division) => (
+                            <Option key={division.value} value={division.value}>
+                              {division.label}
+                            </Option>
                           ))}
                         </Select>
                       </Form.Item>
@@ -242,8 +247,8 @@ export default function BorrowingRequest() {
                       optionLabelProp="label"
                     >
                       {inventoryState.listInventories.map(item => (
-                        <Option 
-                          key={item.id} 
+                        <Option
+                          key={item.id}
                           value={item.id}
                           label={item.name}
                         >
@@ -253,11 +258,10 @@ export default function BorrowingRequest() {
                               <div className="text-xs text-gray-500 mt-1">Stok: {item.quantity} {item.unit}</div>
                             </div>
                             <div className="ml-3">
-                              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
-                                parseInt(item.quantity) > 0 
-                                  ? 'bg-green-100 text-green-800' 
-                                  : 'bg-red-100 text-red-800'
-                              }`}>
+                              <span className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${parseInt(item.quantity) > 0
+                                ? 'bg-green-100 text-green-800'
+                                : 'bg-red-100 text-red-800'
+                                }`}>
                                 {parseInt(item.quantity) > 0 ? 'Tersedia' : 'Stok Habis'}
                               </span>
                             </div>
@@ -317,6 +321,7 @@ export default function BorrowingRequest() {
                           format="DD/MM/YYYY"
                         />
                       </Form.Item>
+                      {/* <Form.Item name='approved' hidden></Form.Item> */}
                     </Col>
                   </Row>
                 </div>
@@ -338,7 +343,7 @@ export default function BorrowingRequest() {
 
           <Col xs={24} lg={8}>
             <Flex vertical gap={10} className="space-y-6">
-              <Card 
+              <Card
                 title={
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center mr-3">
@@ -362,7 +367,7 @@ export default function BorrowingRequest() {
                       <p className="text-xs text-gray-500">Isi dan kirim formulir</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start">
                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
                       <span className="text-xs font-semibold text-blue-600">2</span>
@@ -372,7 +377,7 @@ export default function BorrowingRequest() {
                       <p className="text-xs text-gray-500">Tim meninjau permintaan Anda</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start">
                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
                       <span className="text-xs font-semibold text-blue-600">3</span>
@@ -382,7 +387,7 @@ export default function BorrowingRequest() {
                       <p className="text-xs text-gray-500">Terima notifikasi persetujuan</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start">
                     <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mr-3 mt-0.5">
                       <span className="text-xs font-semibold text-blue-600">4</span>
@@ -395,7 +400,7 @@ export default function BorrowingRequest() {
                 </div>
               </Card>
 
-              <Card 
+              <Card
                 title={
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center mr-3">
@@ -429,7 +434,7 @@ export default function BorrowingRequest() {
                 </div>
               </Card>
 
-              <Card 
+              <Card
                 title={
                   <div className="flex items-center">
                     <div className="w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center mr-3">
@@ -471,25 +476,25 @@ export default function BorrowingRequest() {
         className="success-modal"
       >
         <div className="text-center py-6">
-          <CheckCircleOutlined 
-            className="text-green-500 text-6xl mb-4" 
+          <CheckCircleOutlined
+            className="text-green-500 text-6xl mb-4"
           />
-          
+
           <Title level={2} className="text-green-600 mb-2">
             🎉 Permintaan Berhasil!
           </Title>
-          
+
           <Text className="text-gray-600 text-lg block mb-4">
             Permintaan peminjaman Anda telah berhasil dikirim
           </Text>
-          
+
           <div className="bg-gray-50 p-4 rounded-lg mb-6">
             <Text strong className="text-gray-800 block mb-2">
               Kode Peminjaman Anda:
             </Text>
             <div className="bg-white p-3 rounded border-2 border-dashed border-blue-300">
-              <Text 
-                className="text-2xl font-mono font-bold text-blue-600" 
+              <Text
+                className="text-2xl font-mono font-bold text-blue-600"
                 copyable={{ text: successModal.borrowingCode }}
               >
                 {successModal.borrowingCode}
@@ -525,8 +530,8 @@ export default function BorrowingRequest() {
             <Button onClick={handleModalClose} size="large">
               Tutup
             </Button>
-            <Button 
-              type="primary" 
+            <Button
+              type="primary"
               onClick={handleModalClose}
               size="large"
               className="bg-green-600 hover:bg-green-700 border-green-600 hover:border-green-700"

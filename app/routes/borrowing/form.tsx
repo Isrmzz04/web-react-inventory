@@ -40,6 +40,11 @@ export default function FormModal({
     { value: 'Logistics', label: 'Logistics' }
   ]
 
+  const statusOptions = [
+    { value: 1, label: 'Disetujui' },
+    { value: 0, label: 'Ditolak' }
+  ]
+
   useEffect(() => {
     if (isEdit && borrowingState.detailBorrowing?.id) {
       form.setFieldsValue({
@@ -51,7 +56,8 @@ export default function FormModal({
         inventory_id: parseInt(borrowingState.detailBorrowing.inventory_id),
         qty: parseInt(borrowingState.detailBorrowing.qty),
         tgl_peminjaman: borrowingState.detailBorrowing.tgl_peminjaman ? dayjs(borrowingState.detailBorrowing.tgl_peminjaman) : null,
-        tgl_pengembalian: borrowingState.detailBorrowing.tgl_pengembalian ? dayjs(borrowingState.detailBorrowing.tgl_pengembalian) : null
+        tgl_pengembalian: borrowingState.detailBorrowing.tgl_pengembalian ? dayjs(borrowingState.detailBorrowing.tgl_pengembalian) : null,
+        approved: borrowingState.detailBorrowing.approved
       })
     } else {
       form.resetFields()
@@ -67,6 +73,18 @@ export default function FormModal({
     const inventory = inventories.find(inv => inv.id === inventoryId)
     return inventory ? parseInt(inventory.quantity) : 0
   }
+
+  const validateReturnDate = (rule: any, value: any) => {
+    if (value) {
+      const borrowingDate = form.getFieldValue('tgl_peminjaman')
+      if (borrowingDate && value.isBefore(borrowingDate, 'day')) {
+        return Promise.reject('Return date cannot be earlier than borrowing date')
+      }
+    }
+    return Promise.resolve()
+  }
+
+  const isApproved = isEdit && borrowingState.detailBorrowing?.approved !== null && borrowingState.detailBorrowing?.approved !== undefined
 
   return (
     <Modal
@@ -120,6 +138,7 @@ export default function FormModal({
                   placeholder="Enter borrower full name"
                   size="large"
                   maxLength={100}
+                  disabled={isApproved}
                 />
               </Form.Item>
             </Col>
@@ -137,6 +156,7 @@ export default function FormModal({
                   placeholder="Enter email address"
                   size="large"
                   type="email"
+                  disabled={isApproved}
                 />
               </Form.Item>
             </Col>
@@ -154,6 +174,7 @@ export default function FormModal({
                   size="large"
                   showSearch
                   optionFilterProp="children"
+                  disabled={isApproved}
                 >
                   {divisiOptions.map((division) => (
                     <Option key={division.value} value={division.value}>
@@ -178,6 +199,7 @@ export default function FormModal({
                   placeholder="Enter employee ID or identity number"
                   size="large"
                   maxLength={20}
+                  disabled={isApproved}
                 />
               </Form.Item>
             </Col>
@@ -195,6 +217,7 @@ export default function FormModal({
                   size="large"
                   showSearch
                   optionFilterProp="children"
+                  disabled={isApproved}
                 >
                   {inventories.map((inventory) => (
                     <Option key={inventory.id} value={inventory.id}>
@@ -224,6 +247,7 @@ export default function FormModal({
                   size="large"
                   min={1}
                   style={{ width: '100%' }}
+                  disabled={isApproved}
                   onChange={(value) => {
                     const inventoryId = form.getFieldValue('inventory_id')
                     if (inventoryId && value) {
@@ -255,6 +279,10 @@ export default function FormModal({
                   size="large"
                   style={{ width: '100%' }}
                   format="DD/MM/YYYY"
+                  onChange={() => {
+                    form.validateFields(['tgl_pengembalian'])
+                  }}
+                  disabled={isApproved}
                 />
               </Form.Item>
             </Col>
@@ -263,15 +291,60 @@ export default function FormModal({
               <Form.Item
                 label="Return Date"
                 name="tgl_pengembalian"
+                rules={[
+                  { validator: validateReturnDate }
+                ]}
               >
                 <DatePicker
                   placeholder="Select return date (optional)"
                   size="large"
                   style={{ width: '100%' }}
                   format="DD/MM/YYYY"
+                  disabled={isApproved}
                 />
               </Form.Item>
             </Col>
+
+            {isEdit && (
+              <Col span={12}>
+                {borrowingState.detailBorrowing?.approved !== null && 
+                 borrowingState.detailBorrowing?.approved !== undefined ? (
+                  <Form.Item label="Status">
+                    <div className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg border">
+                      <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        +borrowingState.detailBorrowing.approved === 1 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-red-100 text-red-800'
+                      }`}>
+                        {+borrowingState.detailBorrowing.approved === 1 ? 'Disetujui' : 'Ditolak'}
+                      </span>
+                      <span className="text-gray-600 text-sm">
+                        Data ini sudah {+borrowingState.detailBorrowing.approved === 1 ? 'disetujui' : 'ditolak'} dan tidak dapat diubah lagi
+                      </span>
+                    </div>
+                  </Form.Item>
+                ) : (
+                  <Form.Item
+                    label="Status"
+                    name="approved"
+                    rules={[
+                      { required: true, message: 'Please select status' }
+                    ]}
+                  >
+                    <Select
+                      placeholder="Select approval status"
+                      size="large"
+                    >
+                      {statusOptions.map((status) => (
+                        <Option key={status.value} value={status.value}>
+                          {status.label}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+                )}
+              </Col>
+            )}
 
             <Col span={24} className="mt-6">
               <Form.Item className="mb-0 pt-4">
@@ -281,6 +354,7 @@ export default function FormModal({
                     size="large"
                     htmlType="submit"
                     loading={borrowingState.isLoading}
+                    disabled={isEdit && borrowingState.detailBorrowing?.approved !== null && borrowingState.detailBorrowing?.approved !== undefined}
                   >
                     {isEdit ? 'Update Borrowing Request' : 'Create Borrowing Request'}
                   </Button>
